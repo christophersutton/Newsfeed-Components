@@ -113,7 +113,7 @@ const data = [
 
 const articlesDiv = document.querySelector('.articles');
 
-class articleMaker {
+class ArticleMaker {
   constructor(article){
     this.title = article.title;
     this.date = article.date;
@@ -160,7 +160,7 @@ class articleMaker {
 }
 
 data.forEach((a) => {
-  let article = new articleMaker(a);
+  let article = new ArticleMaker(a);
   article.createNode();
 });
 
