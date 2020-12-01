@@ -86,6 +86,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'My Own Article',
+    date: 'Nov 9324th, 2619',
+    firstParagraph: `You thought you were the future.`,
+    secondParagraph: `You were wrong.`,
+    thirdParagraph: `... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
 
@@ -102,7 +109,62 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
+*/
 
+const articlesDiv = document.querySelector('.articles');
+
+class articleMaker {
+  constructor(article){
+    this.title = article.title;
+    this.date = article.date;
+    this.firstParagraph = article.firstParagraph;
+    this.secondParagraph = article.secondParagraph;
+    this.thirdParagraph = article.thirdParagraph;
+  }
+  createNode() {
+    //make the container div
+    const div = document.createElement('div');
+    div.setAttribute('class','article');
+    
+    //make the h2
+    const h2 = document.createElement('h2');
+    h2.textContent = this.title;
+
+    //make the date p
+    const date = document.createElement('p');
+    date.setAttribute('class','date');
+    date.textContent = this.date;
+
+    //make the other ps
+    const p1 = document.createElement('p');
+    const p2 = document.createElement('p');
+    const p3 = document.createElement('p');
+    p1.textContent = this.firstParagraph;
+    p2.textContent = this.secondParagraph;
+    p3.textContent = this.thirdParagraph;
+
+    const span = document.createElement('span');
+    span.textContent = "+";
+    span.setAttribute('class','expandButton');
+
+    // add all to the container
+    div.append(h2,date,p1,p2,p3,span);
+    
+    // paint them on the dom
+    articlesDiv.append(div);
+    this.expandListener(span)
+  }
+  expandListener(span) {
+    span.addEventListener("click",e => e.target.parentElement.classList.toggle('article-open'))
+  }
+}
+
+data.forEach((a) => {
+  let article = new articleMaker(a);
+  article.createNode();
+});
+
+/*
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
